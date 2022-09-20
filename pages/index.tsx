@@ -20,7 +20,7 @@ const Home: NextPage<Props> = (props) => {
 
   return (
     <div>
-        <passage-profile app-id={props.appID}/>
+        <passage-profile app-id={props.appID} />
     </div>
 )
 }

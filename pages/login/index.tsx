@@ -17,7 +17,7 @@ const Login: NextPage<{appID: string}> = (props)=>{
             passageAuth.current.onSuccess = onSuccess
         }
     }, [])
-    
+
     return (
         <div>
             <passage-auth app-id={props.appID} ref={passageAuth}/>
