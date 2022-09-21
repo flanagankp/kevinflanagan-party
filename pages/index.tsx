@@ -1,32 +1,16 @@
 import type { NextPage } from 'next'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
+import { useOwnedEvents } from '../lib/prisma/hooks/events'
 
 interface Props {
   appID: string
 }
 
 const Home: NextPage<Props> = (props) => {
-  const router = useRouter()
-
-  useEffect(()=>{
-    require('@passageidentity/passage-elements/passage-profile');
-    const { PassageUser } = require('@passageidentity/passage-elements/passage-user')
-    new PassageUser().getAuthToken().catch(()=>{
-      localStorage.setItem('redirectURL', router.pathname)
-      router.push('/login')
-    }).then(
-      fetch('api/event')
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-    )
-
-  }, [])
-
+  const {events} = useOwnedEvents()
 
   return (
     <div>
-        <passage-profile app-id={props.appID} />
+        {JSON.stringify(events)}
     </div>
 )
 }
