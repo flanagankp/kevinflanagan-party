@@ -15,8 +15,14 @@ const Home: NextPage<Props> = (props) => {
     new PassageUser().getAuthToken().catch(()=>{
       localStorage.setItem('redirectURL', router.pathname)
       router.push('/login')
-    })
+    }).then(
+      fetch('api/event')
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+    )
+
   }, [])
+
 
   return (
     <div>
