@@ -1,26 +1,24 @@
 import type { NextPage } from 'next'
+import EventCard from '../lib/prisma/components/EventCard'
 import { useOwnedEvents } from '../lib/prisma/hooks/events'
 
-interface Props {
-  appID: string
-}
-
-const Home: NextPage<Props> = (props) => {
+const Home: NextPage = () => {
   const {events} = useOwnedEvents()
+
+  if(!events){
+    return <div>Loading...</div>
+  }
+
+  const eventItems = events.map( event => {
+    return <EventCard event={event} key={event.id}/>
+  })
 
   return (
     <div>
-        {JSON.stringify(events)}
+      <h1>My Events</h1>
+      {eventItems}
     </div>
 )
-}
-
-export async function getStaticProps(){
-  return {
-    props: {
-      appID: process.env.PASSAGE_APP_ID
-    }
-  };
 }
 
 export default Home

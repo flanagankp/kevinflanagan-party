@@ -22,7 +22,20 @@ export function useOwnedEvents(): { events: Event[] } {
         localStorage.setItem('redirectURL', router.pathname)
         router.push('/login')
     }
+    if( !data ){
+        return {
+            events: data,
+        }
+    }
+    const events = data?.data?.events as any[];
+    const formattedEvents = events.map((event)=>{
+        return {
+            ...event,
+            start_time: new Date(event.start_time),
+            end_time: event.end_time ? new Date(event.end_time) : null
+        }
+    })
     return {
-        events: data?.data as Event[],
+        events: formattedEvents as Event[],
     }
 }

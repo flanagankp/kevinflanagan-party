@@ -5,7 +5,7 @@ import { Event } from '@prisma/client';
 import Passage from '@passageidentity/passage-node'
 
 type Data = {
-  events: Event[]
+  event: Event
 }
 
 const passage = new Passage({
@@ -25,16 +25,21 @@ export default async function handler(
       return;
     }
     if (req.method === 'GET') {
-        getEvents(userID, res)
+        getEvent(req.body.id, userID, res)
         return;
     }
 }
 
-async function getEvents(userID: string, res: NextApiResponse<Data>) {
-    const events = await prisma.event.findMany({
+async function getEvent(eventID: string, userID: string, res: NextApiResponse<Data>) {
+    const event = await prisma.event.findUnique({
         where: {
-          owner_id: userID
-        }
+          id: eventID
+        },
     })
-    res.status(200).json({ events })
+    if(event.owner_id !== userID && !event.guest_ids.includes(userID)){
+      // unauthorized
+      res.status(401)
+      return;
+    }
+    res.status(200).json({ event })
 }
