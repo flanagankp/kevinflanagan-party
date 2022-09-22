@@ -1,0 +1,8 @@
+.eventCard {
+    transition: 0.3s all !important;
+    user-select: none;
+    cursor: pointer;
+    &:hover{
+        transform: scale(1.05);
+    }
+}

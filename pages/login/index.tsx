@@ -2,6 +2,9 @@ import { authResult, PassageElement } from '@passageidentity/passage-elements'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import { Container } from '@mui/material';
 
 const Login: NextPage<{appID: string}> = (props)=>{
     const router = useRouter()
@@ -19,9 +22,13 @@ const Login: NextPage<{appID: string}> = (props)=>{
     }, [])
 
     return (
-        <div>
-            <passage-auth app-id={props.appID} ref={passageAuth}/>
-        </div>
+        <Container maxWidth="xs" sx={{padding: '25px'}}>
+            <Card sx={{ minWidth: 400}}>
+                <CardContent>
+                    <passage-auth app-id={props.appID} ref={passageAuth}/>
+                </CardContent>
+            </Card>
+        </Container>
     )
 }
 

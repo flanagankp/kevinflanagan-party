@@ -1,6 +1,9 @@
+import { Container } from '@mui/material'
 import type { NextPage } from 'next'
 import EventCard from '../lib/prisma/components/EventCard'
 import { useOwnedEvents } from '../lib/prisma/hooks/events'
+import Grid from '@mui/material/Grid';
+
 
 const Home: NextPage = () => {
   const {events} = useOwnedEvents()
@@ -10,14 +13,16 @@ const Home: NextPage = () => {
   }
 
   const eventItems = events.map( event => {
-    return <EventCard event={event} key={event.id}/>
+    return (<Grid item xs={4} key={event.id}><EventCard event={event}/></Grid>)
   })
 
   return (
-    <div>
+    <Container maxWidth="md">
       <h1>My Events</h1>
-      {eventItems}
-    </div>
+      <Grid container spacing={2}>
+        {eventItems}
+      </Grid>
+    </Container>
 )
 }
 

@@ -35,6 +35,7 @@ export function useOwnedEvents(): { events: Event[] } {
             end_time: event.end_time ? new Date(event.end_time) : null
         }
     })
+    formattedEvents.sort((eventA, eventB) => { return eventA.start_time - eventB.start_time})
     return {
         events: formattedEvents as Event[],
     }
