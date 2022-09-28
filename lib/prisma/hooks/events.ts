@@ -1,10 +1,10 @@
 import { Event } from '@prisma/client'
+import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import axios from 'axios'
-import { useRouter } from 'next/router'
+import { PassageUser } from '@passageidentity/passage-elements/passage-user'
 
 const fetcher = (url) => {
-    const { PassageUser } = require('@passageidentity/passage-elements/passage-user')
     const user = new PassageUser()
     return user.getAuthToken().then((authToken) =>
         axios.get(url, {
@@ -21,11 +21,6 @@ export function useOwnedEvents(): { events: Event[] } {
     if(error){
         localStorage.setItem('redirectURL', router.pathname)
         router.push('/login')
-    }
-    if( !data ){
-        return {
-            events: data,
-        }
     }
     const events = data?.data?.events as any[];
     const formattedEvents = events.map((event)=>{
