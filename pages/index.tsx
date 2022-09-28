@@ -1,7 +1,7 @@
 import { Container } from '@mui/material'
 import type { NextPage } from 'next'
-import EventCard from '../lib/prisma/components/EventCard'
-import { useOwnedEvents } from '../lib/prisma/hooks/events'
+import EventCard from '../components/EventCard'
+import { useOwnedEvents } from '../lib/hooks/events'
 import Grid from '@mui/material/Grid';
 
 
